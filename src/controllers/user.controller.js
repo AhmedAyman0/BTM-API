@@ -1,4 +1,6 @@
 var User = require('../models/user');
+var Shop = require('../models/shop');
+var Item = require('../models/item');
 var jwt = require('jsonwebtoken');
 var config = require('../config/config');
  
@@ -57,3 +59,34 @@ exports.loginUser = (req, res) => {
         });
     });
 };
+
+exports.getAll = async (req,res)=>{
+    try {
+        const users = await User.find().populate('shops');
+        return res.status(200).json(users);
+    } catch (error) {
+        return res.status(500).json({msg : error})
+    }
+
+}
+
+exports.getById = async (req,res)=>{
+    try {
+        
+        const user = await User.findById(req.params.id).populate('shops');
+        return res.status(200).json(user);
+    } catch (error) {
+        return res.status(500).json({msg : error})
+    }
+}
+
+exports.updateUser = async (req,res)=>{
+    try {
+        
+        const user = await User.findByIdAndUpdate(req.params.id,req.body).populate('shops');
+
+        return res.status(200).json(user);
+    } catch (error) {
+        return res.status(500).json({msg : error})
+    }
+}
