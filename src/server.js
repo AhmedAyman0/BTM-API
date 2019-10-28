@@ -24,7 +24,9 @@ app.get('/', function(req, res) {
 });
  
 var userRoutes = require('./routes/user.routes');
+var shopRoutes = require('./routes/shop.routes');
 app.use('/api', userRoutes);
+app.use('/api', shopRoutes);
  
 mongoose.connect(config.db, { useNewUrlParser: true , useCreateIndex: true});
  

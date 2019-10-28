@@ -19,7 +19,12 @@ var UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  shops: [{ type: Schema.Types.ObjectId, ref: "Shop" }]
+  shops: [{ type: Schema.Types.ObjectId, ref: "Shop" }],
+  banned: {
+    type: Boolean,
+    default:false,
+    required: false
+  }
 });
 
 UserSchema.pre("save", function(next) {
@@ -39,9 +44,11 @@ UserSchema.pre("save", function(next) {
 });
 
 UserSchema.pre("findOneAndUpdate", function(next) {
-    let salt = bcrypt.genSaltSync(10);
-    this._update.password = bcrypt.hashSync(this._update.password, salt);
-  });
+  if(this._update.password.length>20) return next();
+  let salt = bcrypt.genSaltSync(10);
+  this._update.password = bcrypt.hashSync(this._update.password, salt);
+  next()
+});
 
 UserSchema.methods.comparePassword = function(candidatePassword, cb) {
   bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
