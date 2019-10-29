@@ -5,7 +5,7 @@ var jwt = require('jsonwebtoken');
 var config = require('../config/config');
  
 function createToken(user) {
-    return jwt.sign({ id: user.id, email: user.email }, config.jwtSecret, {
+    return jwt.sign({ id: user.id, email: user.email , role:user.role }, config.jwtSecret, {
         expiresIn: 200 // 86400 expires in 24 hours
       });
 }
@@ -51,7 +51,8 @@ exports.loginUser = (req, res) => {
         user.comparePassword(req.body.password, (err, isMatch) => {
             if (isMatch && !err) {
                 return res.status(200).json({
-                    token: createToken(user)
+                    token: createToken(user),
+                    user:user
                 });
             } else {
                 return res.status(400).json({ msg: 'The email and password don\'t match.' });
@@ -63,9 +64,9 @@ exports.loginUser = (req, res) => {
 exports.getAll = async (req,res)=>{
     try {
         const users = await User.find().populate('shops');
-        return res.status(200).json(users);
+        return res.status(200).json({users,shopsssssssss:users.shops});
     } catch (error) {
-        return res.status(500).json({msg : error})
+        return res.status(500).json({msg : error.message})
     }
 
 }
@@ -87,6 +88,6 @@ exports.updateUser = async (req,res)=>{
 
         return res.status(200).json(user);
     } catch (error) {
-        return res.status(500).json({msg : error})
+        return res.status(500).json({msg : error.message})
     }
 }

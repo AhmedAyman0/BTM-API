@@ -14,13 +14,24 @@ var ShopSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    items:[
-        {
-            type : Schema.Types.ObjectId,
-            ref  : 'Item'
-        }
-    ]
-});
+    imgUrl:{
+        type:String,
+
+    },
+    category:{
+        type: Schema.Types.ObjectId,
+        ref: 'Category'
+    },
+
+},{toJSON:{virtuals:true}});
+
+ShopSchema.virtual('items',{
+    ref: 'Item',
+    localField: '_id',
+    foreignField:'shop',
+    justOne:false
+  });
+  
  
 
 

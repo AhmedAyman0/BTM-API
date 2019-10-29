@@ -3,14 +3,16 @@ var mongoose = require("mongoose");
 var bcrypt = require("bcrypt");
 var Schema = mongoose.Schema;
 
+const Roles = {Customer : "customer" ,Admin: "admin" , ShopOwner :"shop owner"}
+Object.freeze(Roles);
+
 var UserSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
     required: true,
     lowercase: true,
-    enum: ["user", "admin", "shop owner"],
-    default: "user",
+
     trim: true,
 
     validate: [isEmail, "Invalid mail "]
@@ -19,13 +21,21 @@ var UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  shops: [{ type: Schema.Types.ObjectId, ref: "Shop" }],
-  banned: {
-    type: Boolean,
-    default:false,
-    required: false
+  role:{
+    type:String,
+    enum: Object.values(Roles),
+    default: Roles[0]
   }
-});
+  
+
+},{toJSON:{virtuals:true}});
+
+UserSchema.virtual('shops',{
+  ref: 'Shop',
+  localField: '_id',
+  foreignField:'belongsTo',
+  justOne:false
+})
 
 UserSchema.pre("save", function(next) {
   var user = this;

@@ -1,4 +1,5 @@
 var Shop = require('../models/shop');
+var User = require('../models/user');
 var Item = require('../models/item');
 var config = require('../config/config');
 
@@ -12,6 +13,7 @@ exports.getAll = async (req,res)=>{
 
 }
 
+
 exports.getById = async (req,res)=>{
     try {
         
@@ -23,10 +25,20 @@ exports.getById = async (req,res)=>{
 }
 exports.createShop = async (req,res)=>{
     try {
-        console.log(req.body)
+        if(!req.body.name){
+            return res.status(400).json({"msg":"provide a name"})
+        }
+        const dShop = await Shop.findOne({name:req.body.name});
+        if(dShop){
+            return res.status(400).json({"msg":"Shop with this name already exists"})
+        }
 
         const shop = await Shop.create(req.body);
-
+        shop.save();
+            const user = await User.findById(shop.belongsTo).populate('shops');
+            console.log(user);
+            user.shops.push(shop);
+            user.save();
         return res.status(200).json(shop);
     } catch (error) {
         return res.status(500).json({msg : error.message})
