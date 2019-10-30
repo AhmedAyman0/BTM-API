@@ -31,7 +31,8 @@ ShopSchema.virtual('items',{
     foreignField:'shop',
     justOne:false
   });
-  
+  ShopSchema.set('toObject', { virtuals: true });
+  ShopSchema.set('toJSON', { virtuals: true });
  
 
 

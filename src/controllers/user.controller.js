@@ -64,7 +64,7 @@ exports.loginUser = (req, res) => {
 exports.getAll = async (req,res)=>{
     try {
         const users = await User.find().populate('shops');
-        return res.status(200).json({users,shopsssssssss:users.shops});
+        return res.status(200).json(users);
     } catch (error) {
         return res.status(500).json({msg : error.message})
     }
@@ -74,7 +74,7 @@ exports.getAll = async (req,res)=>{
 exports.getById = async (req,res)=>{
     try {
         
-        const user = await User.findById(req.params.id).populate('shops');
+        const user = await User.findById(req.params.id).populate('shops').populate('requestsTo').populate('requestsFrom');
         return res.status(200).json(user);
     } catch (error) {
         return res.status(500).json({msg : error})

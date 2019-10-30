@@ -54,3 +54,24 @@ exports.updateShop = async (req,res)=>{
         return res.status(500).json({msg : error.message})
     }
 }
+    exports.deleteShop = async (req,res)=>{
+        try {
+            
+            const shop = await Shop.findByIdAndDelete(req.params.id);
+    
+            return res.status(200).json(shop);
+        } catch (error) {
+            return res.status(500).json({msg : error.message})
+        }
+}
+
+exports.getShopByUser = async (req,res)=>{
+    try {
+        
+        const shop = await Shop.find({belongsTo:req.params.id}).populate('category');
+
+        return res.status(200).json(shop);
+    } catch (error) {
+        return res.status(500).json({msg : error.message})
+    }
+}

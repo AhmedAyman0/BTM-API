@@ -17,6 +17,10 @@ var UserSchema = new mongoose.Schema({
 
     validate: [isEmail, "Invalid mail "]
   },
+  banned:{
+    type:Boolean,
+    default:false
+  },
   password: {
     type: String,
     required: true
@@ -37,6 +41,19 @@ UserSchema.virtual('shops',{
   justOne:false
 })
 
+UserSchema.virtual('requestsTo',{
+  ref: 'Request',
+  localField: '_id',
+  foreignField:'from',
+  justOne:false
+})
+UserSchema.virtual('requestFrom',{
+  ref: 'Request',
+  localField: '_id',
+  foreignField:'to',
+  justOne:false
+})
+
 UserSchema.pre("save", function(next) {
   var user = this;
   if (!user.isModified("password")) return next();
@@ -52,8 +69,11 @@ UserSchema.pre("save", function(next) {
     });
   });
 });
-
+UserSchema.set('toObject', { virtuals: true });
+UserSchema.set('toJSON', { virtuals: true });
 UserSchema.pre("findOneAndUpdate", function(next) {
+  delete this._update.shops;
+  console.log(this._update)
   if(this._update.password.length>20) return next();
   let salt = bcrypt.genSaltSync(10);
   this._update.password = bcrypt.hashSync(this._update.password, salt);
