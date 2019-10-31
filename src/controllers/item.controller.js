@@ -32,11 +32,6 @@ exports.createItem = async (req,res)=>{
         }
 
         const item = await Item.create(req.body);
-        item.save();
-            const user = await User.findById(item.belongsTo).populate('items');
-            console.log(user);
-            user.items.push(item);
-            user.save();
         return res.status(200).json(item);
     } catch (error) {
         return res.status(500).json({msg : error.message})
