@@ -1,6 +1,5 @@
 var User = require('../models/user');
-var Shop = require('../models/shop');
-var Item = require('../models/item');
+var Request = require('../models/request');
 var jwt = require('jsonwebtoken');
 var config = require('../config/config');
  
