@@ -21,10 +21,11 @@ var ItemSchema = new mongoose.Schema({
     count:{
         type:Number,
         required:true,
+        default:1
     },
     inStock:{
         type:Boolean,
-        required:true,
+        default:true,
     },
     description:{
         type:String,
