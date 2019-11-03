@@ -12,11 +12,11 @@ exports.getAll = async (req,res)=>{
 }
 
 
-exports.getById = async (req,res)=>{
+exports.getByIdFor = async (req,res)=>{
     try {
         
-        const request = await Request.findById(req.params.id);
-        return res.status(200).json(request);
+        const requests = await Request.find({$or:[{to:req.params.id},{from:req.params.id}]});
+        return res.status(200).json(requests);
     } catch (error) {
         return res.status(500).json({msg : error.message})
     }
