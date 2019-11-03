@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 var RequestSchema = new mongoose.Schema({
   isPending: {
         type: Boolean,
+        default:true,
     },
     from:{
         type: Schema.Types.ObjectId,
