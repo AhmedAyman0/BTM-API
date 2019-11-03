@@ -15,7 +15,7 @@ exports.getAll = async (req,res)=>{
 exports.getById = async (req,res)=>{
     try {
         
-        const item = await Item.findById(req.params.id).populate('items').populate('belongsTo');
+        const item = await Item.findById(req.params.id).populate('shop');
         return res.status(200).json(item);
     } catch (error) {
         return res.status(500).json({msg : error.message})
