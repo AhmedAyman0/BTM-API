@@ -12,7 +12,6 @@ var UserSchema = new mongoose.Schema({
     unique: true,
     required: true,
     lowercase: true,
-
     trim: true,
 
     validate: [isEmail, "Invalid mail "]
@@ -28,7 +27,7 @@ var UserSchema = new mongoose.Schema({
   role:{
     type:String,
     enum: Object.values(Roles),
-    default: Roles[0]
+    default: Roles.Customer
   }
   
 
@@ -47,7 +46,7 @@ UserSchema.virtual('requestsTo',{
   foreignField:'from',
   justOne:false
 })
-UserSchema.virtual('requestFrom',{
+UserSchema.virtual('requestsFrom',{
   ref: 'Request',
   localField: '_id',
   foreignField:'to',
