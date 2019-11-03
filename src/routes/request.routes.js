@@ -5,7 +5,7 @@ var passport	    = require('passport');
  
 
 routes.get('/requests',requestController.getAll);
-routes.get('/requests/:id',requestController.getById);
+routes.get('/requests/:id',requestController.getByIdFor);
 routes.put('/requests/:id',requestController.updateRequest);
 routes.post('/requests',requestController.createRequest);
 routes.delete('/requests/:id',requestController.deleteRequest);
