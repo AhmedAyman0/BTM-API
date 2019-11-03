@@ -23,13 +23,6 @@ exports.getById = async (req,res)=>{
 }
 exports.createRequest = async (req,res)=>{
     try {
-        if(!req.body.name){
-            return res.status(400).json({"msg":"provide a name"})
-        }
-        const dRequest = await Request.findOne({name:req.body.name});
-        if(dRequest){
-            return res.status(400).json({"msg":"Request with this name already exists"})
-        }
 
         const request = await Request.create(req.body);
 
