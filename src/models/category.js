@@ -11,6 +11,7 @@ var CategorySchema = new mongoose.Schema({
     },
     imgUrl:{
         type:String,
+        default:'https://www.louisianabelieves.com/images/default-source/buttons/webgraphics_category-button.png?sfvrsn=6'
     },
 },{toJSON:{virtuals:true}});
  
