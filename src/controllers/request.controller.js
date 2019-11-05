@@ -15,7 +15,7 @@ exports.getAll = async (req,res)=>{
 exports.getByIdFor = async (req,res)=>{
     try {
         
-        const requests = await Request.find({$or:[{to:req.params.id},{from:req.params.id}]}).populate('to').populate('item');
+        const requests = await Request.find({$or:[{to:req.params.id},{from:req.params.id}]}).populate('from').populate('item');
         return res.status(200).json(requests);
     } catch (error) {
         return res.status(500).json({msg : error.message})
