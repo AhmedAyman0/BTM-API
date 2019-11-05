@@ -15,6 +15,10 @@ var RequestSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
+    item:{
+        type: Schema.Types.ObjectId,
+        ref: 'Item'
+    }
 });
 
 module.exports = mongoose.model('Request', RequestSchema);
