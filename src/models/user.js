@@ -3,7 +3,7 @@ var mongoose = require("mongoose");
 var bcrypt = require("bcrypt");
 var Schema = mongoose.Schema;
 
-const Roles = {Customer : "customer" ,Admin: "admin" , ShopOwner :"shop owner"}
+const Roles = {Customer : "customer" ,Admin: "admin" , ShopOwner :"shop owner",SubAdmin:"subAdmin"}
 Object.freeze(Roles);
 
 var UserSchema = new mongoose.Schema({
@@ -15,6 +15,10 @@ var UserSchema = new mongoose.Schema({
     trim: true,
 
     validate: [isEmail, "Invalid mail "]
+  },
+  avatar:{
+    type:String,
+    default:'assets/imgs/avatar.jpg'
   },
   banned:{
     type:Boolean,

@@ -15,7 +15,7 @@ var ShopSchema = new mongoose.Schema({
         ref: 'User'
     },
     imgUrl:{
-        type:String,
+        type:Object,
 
     },
     category:{

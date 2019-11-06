@@ -32,7 +32,6 @@ exports.createShop = async (req,res)=>{
         if(dShop){
             return res.status(400).json({"msg":"Shop with this name already exists"})
         }
-
         const shop = await Shop.create(req.body);
         shop.save();
             const user = await User.findById(shop.belongsTo).populate('shops');
