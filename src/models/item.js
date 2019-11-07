@@ -14,7 +14,11 @@ var ItemSchema = new mongoose.Schema({
         type:String,
         default:'assets/imgs/item.png'
     },
-
+    price:{
+        type:Number,
+        default:10.0
+    }
+,
   shop: {
         type: Schema.Types.ObjectId,
         ref: 'Shop'
