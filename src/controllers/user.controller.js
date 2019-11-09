@@ -142,7 +142,7 @@ exports.resetPassword = async (req, res) => {
         user.id +
         "/" +
         token +
-        '">' +
+        '>' +
         "click here" +
         "</a>" +
         "<br><br>" +
@@ -157,6 +157,8 @@ exports.resetPassword = async (req, res) => {
     }); //sending mail to the user where he can reset password.User id and the token generated are sent as params in a link
   } catch (error) {
     console.log(error);
+    return res.status(500).json({ msg: error });
+
   }
 };
 
@@ -165,11 +167,13 @@ exports.SaveNewPassword = async (req, ress) => {
   const token = req.body.token;
   const password = req.body.password;
   try {
-    let user = await  User.findById(userId);
-    user.password=password;
+    let user = await User.findById(userId);
+    user.password = password;
     await User.findByIdAndUpdate();
-    return res.status(200).json({msg:"Password Updated Successfully!"})
+    return res.status(200).json({ msg: "Password Updated Successfully!" });
   } catch (error) {
     console.log(error);
+    return res.status(500).json({ msg: error });
+
   }
 };
