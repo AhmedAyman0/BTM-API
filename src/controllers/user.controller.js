@@ -162,14 +162,14 @@ exports.resetPassword = async (req, res) => {
   }
 };
 
-exports.SaveNewPassword = async (req, ress) => {
+exports.SaveNewPassword = async (req, res) => {
   const userId = req.body.userId;
   const token = req.body.token;
   const password = req.body.password;
   try {
     let user = await User.findById(userId);
     user.password = password;
-    await User.findByIdAndUpdate();
+    await User.findByIdAndUpdate(userId,user);
     return res.status(200).json({ msg: "Password Updated Successfully!" });
   } catch (error) {
     console.log(error);
