@@ -22,13 +22,6 @@ exports.getById = async (req,res)=>{
 }
 exports.createCheckOut = async (req,res)=>{
     try {
-        if(!req.body.name){
-            return res.status(400).json({"msg":"provide a name"})
-        }
-        const dCheckOut = await CheckOut.findOne({name:req.body.name});
-        if(dCheckOut){
-            return res.status(400).json({"msg":"CheckOut with this name already exists"})
-        }
         const checkOut = await CheckOut.create(req.body);
         checkOut.save();
             const user = await User.findById(checkOut.belongsTo).populate('checkOuts');
