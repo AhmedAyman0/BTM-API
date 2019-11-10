@@ -23,11 +23,7 @@ exports.getById = async (req,res)=>{
 exports.createCheckOut = async (req,res)=>{
     try {
         const checkOut = await CheckOut.create(req.body);
-        checkOut.save();
-            const user = await User.findById(checkOut.belongsTo).populate('checkOuts');
-            console.log(user);
-            user.checkOuts.push(checkOut);
-            user.save();
+
         return res.status(200).json(checkOut);
     } catch (error) {
         return res.status(500).json({msg : error.message})
