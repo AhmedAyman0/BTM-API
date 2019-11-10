@@ -96,6 +96,7 @@ exports.getById = async (req, res) => {
     const user = await User.findById(req.params.id)
       .populate("shops")
       .populate("requestsTo")
+      .populate("checkOuts")
       .populate("requestsFrom");
     return res.status(200).json(user);
   } catch (error) {

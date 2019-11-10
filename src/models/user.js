@@ -43,7 +43,12 @@ UserSchema.virtual('shops',{
   foreignField:'belongsTo',
   justOne:false
 })
-
+UserSchema.virtual('checkOuts',{
+  ref: 'CheckOut',
+  localField: '_id',
+  foreignField:'belongsTo',
+  justOne:false
+})
 UserSchema.virtual('requestsTo',{
   ref: 'Request',
   localField: '_id',
