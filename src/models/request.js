@@ -18,6 +18,10 @@ var RequestSchema = new mongoose.Schema({
     item:{
         type: Schema.Types.ObjectId,
         ref: 'Item'
+    },
+    checkOut:{
+        type: Schema.Types.ObjectId,
+        ref: 'CheckOut'
     }
 });
 

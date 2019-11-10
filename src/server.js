@@ -28,11 +28,13 @@ var shopRoutes = require('./routes/shop.routes');
 var categoryRoutes = require('./routes/category.routes');
 var itemRoutes = require('./routes/item.routes');
 var requestRoutes = require('./routes/request.routes');
+var checkOuttRoutes = require('./routes/checkout.routes');
 app.use('/api', userRoutes);
 app.use('/api', categoryRoutes);
 app.use('/api', shopRoutes);
 app.use('/api', itemRoutes);
 app.use('/api', requestRoutes);
+app.use('/api', checkOuttRoutes);
  
 mongoose.connect(config.db, { useNewUrlParser: true , useCreateIndex: true});
  
