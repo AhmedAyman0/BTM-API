@@ -1,6 +1,6 @@
 var express         = require('express'),
     routes          = express.Router();
-var checkOutController  = require('../controllers/checkOut.controller');
+var checkOutController  = require('../controllers/checkout.controller');
 var passport	    = require('passport');
  
 
