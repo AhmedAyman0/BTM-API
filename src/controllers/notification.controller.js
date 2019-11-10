@@ -9,27 +9,52 @@ var myClient = new OneSignal.Client({
 });
 
 var firstNotification = new OneSignal.Notification({
-  contents: {
-    en: "Test notification",
-    tr: "Test mesajı"
-  },
   headings: {
     en: "hello"
-  },
-  filters: []
-});
-
-exports.sendNotification = async (req, res) => {
-  firstNotification.postBody["contents"] = { en: req.body.msg };
-  firstNotification.postBody["filters"].push({
-    field: "email",
-    relation: "=",
-    value: req.body.email
-  });
-  try {
-    await myClient.sendNotification(firstNotification);
-    return res.status(200);
-  } catch (error) {
-    return res.status(500).json({ msg: error });
   }
+});
+var sendNotification = function(data) {
+    var headers = {
+      "Content-Type": "application/json; charset=utf-8",
+      "Authorization": "Basic ZWQwNzhmOWYtMjhhZi00M2FjLWJjZjEtNmVjNjMxMmEwNzI0"
+    };
+    
+    var options = {
+      host: "onesignal.com",
+      port: 443,
+      path: "/api/v1/notifications",
+      method: "POST",
+      headers: headers
+    };
+    
+    var https = require('https');
+    var req = https.request(options, function(res) {  
+      res.on('data', function(data) {
+        console.log("Response:");
+        console.log(JSON.parse(data));
+      });
+    });
+    
+    req.on('error', function(e) {
+      console.log("ERROR:");
+      console.log(e);
+    });
+    
+    req.write(JSON.stringify(data));
+    req.end();
+    return ;
+  };
+  
+
+  
+exports.sendNotification =  (req, res) => {
+  
+    var message = { 
+        app_id: "e3ad473d-a2e2-445f-8e86-b667961ca10a",
+        contents: {"en": req.body.msg},
+
+      };
+    sendNotification(message);
+    return res.status(200);
+
 };
