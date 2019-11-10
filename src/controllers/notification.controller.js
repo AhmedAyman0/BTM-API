@@ -16,7 +16,7 @@ var firstNotification = new OneSignal.Notification({
 var sendNotification = function(data) {
     var headers = {
       "Content-Type": "application/json; charset=utf-8",
-      "Authorization": "Basic ZWQwNzhmOWYtMjhhZi00M2FjLWJjZjEtNmVjNjMxMmEwNzI0"
+      "Authorization": "Basic ZGMxNjA4MjEtODU1YS00ZDIzLTlhYjAtNDIzMzUwMmZjMWFm"
     };
     
     var options = {
@@ -52,7 +52,10 @@ exports.sendNotification =  (req, res) => {
     var message = { 
         app_id: "e3ad473d-a2e2-445f-8e86-b667961ca10a",
         contents: {"en": req.body.msg},
-
+        filters: [
+                {"field": "email",  "value": req.body.email}, 
+                
+          ]
       };
     sendNotification(message);
     return res.status(200);
