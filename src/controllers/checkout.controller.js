@@ -1,5 +1,4 @@
 var CheckOut = require('../models/checkout');
-
 exports.getAll = async (req,res)=>{
     try {
         const checkOuts = await CheckOut.find();

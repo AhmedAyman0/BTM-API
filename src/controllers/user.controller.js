@@ -2,7 +2,7 @@ var User = require("../models/user");
 var ResetPassword = require("../models/forgetPassword");
 var jwt = require("jsonwebtoken");
 let bcrypt = require("bcrypt");
-
+var notificationController = require('./notification.controller');
 var crypto = require("crypto");
 const { OAuth2Client } = require("google-auth-library");
 var config = require("../config/config");
@@ -56,6 +56,7 @@ exports.registerUser = (req, res) => {
 exports.loginUser = (req, res) => {
   if (!req.body.email || !req.body.password) {
     return res.status(400).send({ msg: "You need to send email and password" });
+
   }
 
   User.findOne({ email: req.body.email }, (err, user) => {
