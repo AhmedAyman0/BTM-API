@@ -37,9 +37,15 @@ exports.createCheckOut = async (req, res) => {
 };
 exports.updateCheckOut = async (req, res) => {
   try {
+    let pending= true;
+    req.body.requests.forEach(r=>{
+        pending = pending && r.isPending;
+    })
+    if(pending){
+        req.body.isPending=pending;
+    }
     const checkOut = await CheckOut.findByIdAndUpdate(req.params.id, req.body)
-      .populate("items")
-      .populate("belongsTo");
+      .populate("requests");
 
     return res.status(200).json(checkOut);
   } catch (error) {
