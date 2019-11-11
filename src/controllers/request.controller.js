@@ -12,7 +12,7 @@ exports.getAll = async (req, res) => {
 exports.getByIdFor = async (req, res) => {
   try {
     const requests = await Request.find({
-      $or: [{ to: req.params.id }, { from: req.params.id }]
+      $or: [{ to: req.params.id }, { checkOut: req.params.id }]
     })
       .populate("from")
       .populate("to")
