@@ -20,7 +20,7 @@ exports.getById = async (req, res) => {
 };
 exports.getForUser = async (req, res) => {
   try {
-    const checkOut = await CheckOut.find({ belongsTo: req.params.id });
+    const checkOut = await CheckOut.find({ belongsTo: req.params.id }).populate('requests');
     return res.status(200).json(checkOut);
   } catch (error) {
     return res.status(500).json({ msg: error.message });
