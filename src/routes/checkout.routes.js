@@ -4,11 +4,12 @@ var checkOutController  = require('../controllers/checkout.controller');
 var passport	    = require('passport');
  
 
-routes.get('/checkOuts',checkOutController.getAll);
-routes.get('/checkOuts/:id',checkOutController.getById);
-routes.put('/checkOuts/:id',checkOutController.updateCheckOut);
-routes.post('/checkOuts',checkOutController.createCheckOut);
-routes.delete('/checkOuts/:id',checkOutController.deleteCheckOut);
+routes.get('/checkouts',checkOutController.getAll);
+routes.get('/checkouts/:id',checkOutController.getById);
+routes.get('/checkouts/user/:id',checkOutController.getForUser);
+routes.put('/checkouts/:id',checkOutController.updateCheckOut);
+routes.post('/checkouts',checkOutController.createCheckOut);
+routes.delete('/checkouts/:id',checkOutController.deleteCheckOut);
 
 ;
  
