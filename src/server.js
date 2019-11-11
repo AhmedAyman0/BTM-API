@@ -1,6 +1,7 @@
 var express     = require('express');
 var bodyParser  = require('body-parser');
 var passport	= require('passport');
+var socket = require('socket.io');
 var mongoose    = require('mongoose');
 var config      = require('./config/config');
 var port        = process.env.PORT || 5000; 
@@ -52,5 +53,7 @@ connection.on('error', (err) => {
 });
  
 // Start the server
-app.listen(port);
+let server=app.listen(port);
 console.log('Listining: http://localhost:' + port);
+
+let io = socket(server);
