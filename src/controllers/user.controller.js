@@ -4,7 +4,6 @@ var jwt = require("jsonwebtoken");
 let bcrypt = require("bcrypt");
 var notificationController = require('./notification.controller');
 var crypto = require("crypto");
-const { OAuth2Client } = require("google-auth-library");
 var config = require("../config/config");
 const nodemailer = require("nodemailer");
 let transporter = nodemailer.createTransport({

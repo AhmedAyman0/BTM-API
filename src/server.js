@@ -6,7 +6,6 @@ var mongoose    = require('mongoose');
 var config      = require('./config/config');
 var port        = process.env.PORT || 5000; 
 var cors        = require('cors');
- 
 var app = express();
 app.use(cors());
  
@@ -31,6 +30,7 @@ var itemRoutes = require('./routes/item.routes');
 var requestRoutes = require('./routes/request.routes');
 var checkOuttRoutes = require('./routes/checkout.routes');
 var notifyRoutes = require('./routes/notification.routes');
+var googleAuthRoutes = require('./routes/google.auth.routes');
 app.use('/api', userRoutes);
 app.use('/api', categoryRoutes);
 app.use('/api', shopRoutes);
@@ -38,6 +38,7 @@ app.use('/api', itemRoutes);
 app.use('/api', requestRoutes);
 app.use('/api', checkOuttRoutes);
 app.use('/api', notifyRoutes);
+app.use('/api', googleAuthRoutes);
  
 mongoose.connect(config.db, { useNewUrlParser: true , useCreateIndex: true});
  
@@ -51,7 +52,7 @@ connection.on('error', (err) => {
     console.log("MongoDB connection error. Please make sure MongoDB is running. " + err);
     process.exit();
 });
- 
+
 // Start the server
 let server=app.listen(port);
 console.log('Listining: http://localhost:' + port);
@@ -76,5 +77,4 @@ io.on('connection', (socket) => {
   });
 });
  
-var port = process.env.PORT || 3001;
  
