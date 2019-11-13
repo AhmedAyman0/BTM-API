@@ -60,3 +60,15 @@ exports.updateCategory = async (req,res)=>{
             return res.status(500).json({msg : error.message})
         }
 }
+
+exports.categStats = async(req,res)=>{
+    let stats={};
+    try {
+        const categs = await Category.find();
+        stats.categsCount=categs.length;
+        return res.status(200).json(stats);
+    } catch (error) {
+        return res.status(500).json({msg:''+error});
+        
+    }
+}

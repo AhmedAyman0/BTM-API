@@ -4,6 +4,7 @@ var categoryController  = require('../controllers/category.controller');
 var passport	    = require('passport');
  
 
+routes.get('/stats/categs',categoryController.categStats);
 routes.get('/category',categoryController.getAll);
 routes.get('/category/:id',categoryController.getById);
 routes.put('/category/:id',categoryController.updateCategory);

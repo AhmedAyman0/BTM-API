@@ -1,6 +1,7 @@
 const {OAuth2Client} = require('google-auth-library');
 const User = require('../models/user');
 var jwt = require("jsonwebtoken");
+var config = require("../config/config");
 const client = new OAuth2Client('981982700923-acgvgmg8171q8b1r385jkvnv949rh00m.apps.googleusercontent.com',null,'urn:ietf:wg:oauth:2.0:oob');
 function createToken(user) {
     return jwt.sign(
@@ -12,16 +13,16 @@ function createToken(user) {
     );
   }
 exports.verify = async (req,res)=>{
-    try {
         console.log(req.body.idToken);
+        try{
         const ticket = await client.verifyIdToken({
-            idToken:req.body.idToken,
-            
+            idToken:req.body.idToken,  
         });
         const payload = ticket.getPayload();
         const userid = payload['sub'];
         console.log(payload , 'uid',userid);
         const user = await User.findOne({email:payload.email});
+        console.log(user);
         if(user){
             return res.status(200).json({
                 token: createToken(user),
@@ -29,7 +30,7 @@ exports.verify = async (req,res)=>{
               });
         }
         else{
-            let newUser = User({email:payload.email,password:''});
+            let newUser = User({email:payload.email,password:' '});
             newUser.save((err, user) => {
               if (err) {
                 return res.status(400).json({ msg: err });
@@ -37,11 +38,11 @@ exports.verify = async (req,res)=>{
               return res.status(201).json(user);
             });
         }
-        
-    } catch (error) {
-       return res.status(500).json({msg:error});
-      
     }
+    catch(error){
+        return res.status(500).json({msg : error})
+    }
+    
 
 }
 

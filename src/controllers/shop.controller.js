@@ -74,3 +74,15 @@ exports.getShopByUser = async (req,res)=>{
         return res.status(500).json({msg : error.message})
     }
 }
+
+exports.shopStats = async(req,res)=>{
+    let stats={};
+    try {
+        const shops = await Shop.find();
+        stats.shopsCount=shops.length;
+        return res.status(200).json(stats);
+    } catch (error) {
+        return res.status(500).json({msg:''+error});
+        
+    }
+}

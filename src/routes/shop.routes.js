@@ -20,6 +20,7 @@ var upload = multer({storage:storage});
 
 
 routes.get('/shops',shopController.getAll);
+routes.get('/stats/shops',shopController.shopStats);
 routes.get('/shops/:id',shopController.getById);
 routes.put('/shops/:id',shopController.updateShop);
 routes.post('/shops',upload.single('imgUrl'),shopController.createShop);

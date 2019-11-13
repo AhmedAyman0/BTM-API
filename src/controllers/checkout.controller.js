@@ -73,3 +73,20 @@ exports.getCheckOutByUser = async (req, res) => {
     return res.status(500).json({ msg: error.message });
   }
 };
+
+
+exports.checkOutsStats = async(req,res)=>{
+  let stats={};
+  try {
+      const checkOuts = await CheckOut.find();
+      const pending = await CheckOut.find({isPending:true});
+      const nonPending = await CheckOut.find({isPending:false});
+      stats.pendingCheckOuts = pending.length;
+      stats.nonPendingCheckOuts = nonPending.length;
+      stats.checkOutsCount=checkOuts.length;
+      return res.status(200).json(stats);
+  } catch (error) {
+      return res.status(500).json({msg:''+error});
+      
+  }
+}

@@ -5,6 +5,7 @@ var passport	    = require('passport');
  
 
 routes.get('/checkouts',checkOutController.getAll);
+routes.get('/stats/checkouts',checkOutController.checkOutsStats);
 routes.get('/checkouts/:id',checkOutController.getById);
 routes.get('/checkouts/user/:id',checkOutController.getForUser);
 routes.put('/checkouts/:id',checkOutController.updateCheckOut);

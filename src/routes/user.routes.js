@@ -14,6 +14,7 @@ routes.post('/store-password',userController.SaveNewPassword);
 routes.post('/register', userController.registerUser);
 routes.post('/login', userController.loginUser);
 routes.get('/users',userController.getAll);
+routes.get('/stats/users',userController.UsersCount);
 routes.get('/users/:id',userController.getById);
 routes.put('/users/:id',userController.updateUser);
 routes.get('/special', passport.authenticate('jwt', { session: false }), (req, res) => {

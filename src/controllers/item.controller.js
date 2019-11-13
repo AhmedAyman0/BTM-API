@@ -68,3 +68,16 @@ exports.getItemByUser = async (req,res)=>{
         return res.status(500).json({msg : error.message})
     }
 }
+
+
+exports.itemsStats = async(req,res)=>{
+    let stats={};
+    try {
+        const items = await Item.find();
+        stats.itemsCount=items.length;
+        return res.status(200).json(stats);
+    } catch (error) {
+        return res.status(500).json({msg:''+error});
+        
+    }
+  }

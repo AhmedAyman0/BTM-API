@@ -178,3 +178,19 @@ exports.SaveNewPassword = async (req, res) => {
 
   }
 };
+
+
+exports.UsersCount = async(req,res) =>{
+  let stats={};
+  try {
+    const users = await User.find();
+    const enterps = await User.find({role:'shop owner'});
+    stats.usersCount=users.length;
+    stats.enterpsCount=enterps.length;
+    return res.status(200).json({stats});
+  } catch (error) {
+    return res.status(200).json({msg:error+''});
+
+  }
+
+}
